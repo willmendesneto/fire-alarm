@@ -3,12 +3,9 @@ var CONFIG = require('../src/configuration');
 describe('Configuration', function() {
 
   describe('Temperature information', function() {
-    it('should have the sensor type configured', function(){
-      CONFIG.FIRE_ALARM.should.have.property('TYPE').which.is.a.String()
-    });
 
     it('should have the sensor port configured', function(){
-      CONFIG.FIRE_ALARM.should.have.property('PIN').which.is.a.Number()
+      CONFIG.FIRE_ALARM.should.have.property('PIN').which.is.a.String()
     });
 
     it('should have the sensor alarm limit configured', function(){

@@ -12,7 +12,7 @@ describe('FireAlarm', function() {
   });
 
   it('should have the termometer sensor configured', function(){
-    (fireAlarm.temperatureSensor instanceof five.Temperature).should.be.equal(true);
+    (fireAlarm.temperatureSensor instanceof five.Thermometer).should.be.equal(true);
   });
 
   describe('#stopPolling', function(){
@@ -23,6 +23,13 @@ describe('FireAlarm', function() {
 
     it('should remove interval', function(){
       global.clearInterval.calledOnce.should.be.true;
+    });
+  });
+
+
+  describe('#toCelsius', function(){
+    it('should transform raw voltage to celsius value', function(){
+      fireAlarm.temperatureSensor.toCelsius(500.323).should.be.exactly(23);
     });
   });
 
