@@ -1,7 +1,10 @@
 var CONFIG = require('./configuration');
 var request = require('request');
 var five = require('johnny-five');
+var twilio = require('twilio');
 var intervalId = null;
+
+var client = new twilio.RestClient(CONFIG.TWILIO.ACCOUNT_SSID, CONFIG.TWILIO.AUTH_TOKEN);
 
 function FireAlarm() {
   this.piezo = new five.Piezo(3);
@@ -33,6 +36,12 @@ FireAlarm.prototype.startPolling = function() {
           [null, 7/4]
         ],
         tempo: 200
+      });
+
+      client.messages.create({
+        body: 'Something is wrong with your fire alarm. Please, call the local fire brigade.',
+        to: CONFIG.FIRE_ALARM.PHONE_NUMBER,
+        from: CONFIG.TWILIO.PHONE_NUMBER
       });
 
       console.log('Up to the limit:', self.temperatureSensor.celsius);

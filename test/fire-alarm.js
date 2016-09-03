@@ -1,17 +1,34 @@
-var FireAlarm = require('../src/fire-alarm');
+var proxyquire = require('proxyquire');
 var CONFIG = require('../src/configuration');
 var five = require('johnny-five');
 var request = require('request');
 var sinon = require('sinon');
-var clock = null;
 
 describe('FireAlarm', function() {
 
-  var sandbox;
-
   beforeEach(function(){
+    this.sandbox = sinon.sandbox.create();
+    this.createMessagesSpy = this.sandbox.spy();
+    var restClientMessage = {
+      messages: {
+        create: this.createMessagesSpy
+      }
+    };
+
+    twilioMock = {
+      RestClient: function() {
+        return restClientMessage
+      }
+    };
+
+    var FireAlarm = proxyquire('../src/fire-alarm', {
+      twilio: twilioMock
+    });
     fireAlarm = new FireAlarm();
-    sandbox = sinon.sandbox.create();
+  });
+
+  afterEach(function() {
+    this.sandbox.restore();
   });
 
   it('should have the termometer sensor configured', function(){
@@ -20,7 +37,7 @@ describe('FireAlarm', function() {
 
   describe('#stopPolling', function(){
     beforeEach(function(){
-      sandbox.spy(global, 'clearInterval');
+      this.sandbox.spy(global, 'clearInterval');
       fireAlarm.stopPolling();
     });
 
@@ -38,7 +55,15 @@ describe('FireAlarm', function() {
 
   describe('#startPolling', function(){
     beforeEach(function(){
-      sandbox.spy(global, 'setInterval');
+      this.piezoPlaySpy = this.sandbox.spy();
+
+      var piezoStub = {
+        isPlaying: false,
+        play: this.piezoPlaySpy
+      };
+      this.sandbox.stub(fireAlarm, 'piezo', piezoStub);
+
+      this.sandbox.spy(global, 'setInterval');
       fireAlarm.startPolling();
     });
 
@@ -51,21 +76,13 @@ describe('FireAlarm', function() {
     });
 
     describe('When the temperature is up to the limit', function(){
-      var piezoPlaySpy = null;
 
       beforeEach(function() {
-        clock = sandbox.useFakeTimers();
-        var celsiusStub = {
-          celsius: CONFIG.FIRE_ALARM.LIMIT + 1
-        };
-        piezoPlaySpy = sinon.spy();
-        var piezoStub = {
-          isPlaying: false,
-          play: piezoPlaySpy
-        };
+        clock = this.sandbox.useFakeTimers();
 
-        sandbox.stub(fireAlarm, 'temperatureSensor', celsiusStub);
-        sandbox.stub(fireAlarm, 'piezo', piezoStub);
+        this.sandbox.stub(fireAlarm, 'temperatureSensor', {
+          celsius: CONFIG.FIRE_ALARM.LIMIT + 1
+        });
         fireAlarm.startPolling();
         clock.tick(CONFIG.INTERVAL);
       });
@@ -75,7 +92,38 @@ describe('FireAlarm', function() {
       });
 
       it('should trigger piezo sensor alarm', function(){
-        piezoPlaySpy.calledOnce.should.be.true;
+        this.piezoPlaySpy.calledOnce.should.be.true;
+      });
+
+      it('should send the SMS to user', function() {
+        this.createMessagesSpy.calledOnce.should.be.true;
+      });
+
+    });
+
+    describe('When the temperature is up to the limit', function(){
+
+      beforeEach(function() {
+        clock = this.sandbox.useFakeTimers();
+
+        this.sandbox.stub(fireAlarm, 'temperatureSensor', {
+          celsius: CONFIG.FIRE_ALARM.LIMIT - 1
+        });
+
+        fireAlarm.startPolling();
+        clock.tick(CONFIG.INTERVAL);
+      });
+
+      afterEach(function(){
+        clock.restore();
+      });
+
+      it('should NOT trigger piezo sensor alarm', function(){
+        this.piezoPlaySpy.calledOnce.should.be.false;
+      });
+
+      it('should NOT send the SMS to user', function() {
+        this.createMessagesSpy.calledOnce.should.be.false;
       });
 
     });
