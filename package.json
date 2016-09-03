@@ -12,7 +12,8 @@
   "dependencies": {
     "johnny-five": "^0.10.0",
     "nodemon": "^1.7.1",
-    "request": "^2.64.0"
+    "request": "^2.64.0",
+    "twilio": "^2.9.2"
   },
   "devDependencies": {
     "bindings": "^1.2.1",

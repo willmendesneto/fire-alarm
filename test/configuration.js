@@ -11,6 +11,7 @@ describe('Configuration', function() {
     it('should have the sensor alarm limit configured', function(){
       CONFIG.FIRE_ALARM.should.have.property('LIMIT').which.is.a.Number()
     });
+
   });
 
   it('should have the interval polling information', function(){

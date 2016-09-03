@@ -7,8 +7,11 @@ var clock = null;
 
 describe('FireAlarm', function() {
 
+  var sandbox;
+
   beforeEach(function(){
     fireAlarm = new FireAlarm();
+    sandbox = sinon.sandbox.create();
   });
 
   it('should have the termometer sensor configured', function(){
@@ -17,7 +20,7 @@ describe('FireAlarm', function() {
 
   describe('#stopPolling', function(){
     beforeEach(function(){
-      sinon.spy(global, 'clearInterval');
+      sandbox.spy(global, 'clearInterval');
       fireAlarm.stopPolling();
     });
 
@@ -35,7 +38,7 @@ describe('FireAlarm', function() {
 
   describe('#startPolling', function(){
     beforeEach(function(){
-      sinon.spy(global, 'setInterval');
+      sandbox.spy(global, 'setInterval');
       fireAlarm.startPolling();
     });
 
@@ -46,6 +49,37 @@ describe('FireAlarm', function() {
     it('should creates polling', function(){
       global.setInterval.calledOnce.should.be.true;
     });
+
+    describe('When the temperature is up to the limit', function(){
+      var piezoPlaySpy = null;
+
+      beforeEach(function() {
+        clock = sandbox.useFakeTimers();
+        var celsiusStub = {
+          celsius: CONFIG.FIRE_ALARM.LIMIT + 1
+        };
+        piezoPlaySpy = sinon.spy();
+        var piezoStub = {
+          isPlaying: false,
+          play: piezoPlaySpy
+        };
+
+        sandbox.stub(fireAlarm, 'temperatureSensor', celsiusStub);
+        sandbox.stub(fireAlarm, 'piezo', piezoStub);
+        fireAlarm.startPolling();
+        clock.tick(CONFIG.INTERVAL);
+      });
+
+      afterEach(function(){
+        clock.restore();
+      });
+
+      it('should trigger piezo sensor alarm', function(){
+        piezoPlaySpy.calledOnce.should.be.true;
+      });
+
+    });
+
   });
 
 });
