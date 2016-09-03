@@ -6,10 +6,12 @@
 [![Build Windows Status](https://ci.appveyor.com/api/projects/status/github/willmendesneto/fire-alarm?svg=true)](https://ci.appveyor.com/project/willmendesneto/fire-alarm/branch/master)
 [![Coverage Status](https://coveralls.io/repos/willmendesneto/fire-alarm/badge.svg?branch=master)](https://coveralls.io/r/willmendesneto/fire-alarm?branch=master)
 
+![Fire Alarm: fire alarm using NodeJS and Johnny-five](fire-alarm.png)
+
 
 ## INTRODUCTION
 
-Application using Arduino + Johnny Five + NodeJS for to check if the area is on fire.
+Application using Arduino + Johnny Five + NodeJS for to check if the area is on fire and send you a SMS with alarm message.
 
 
 ## First steps
@@ -29,8 +31,9 @@ $ node index.js # or npm start
 ```
 
 You will need of:
+- 1 Arduino with 2 GND inputs and 2 ports (in this case we are using A0 port + GND port for Termometer sensor and 3 port + GND port for piezo sensor);
 - NodeJS;
-- Under construction
+- Access from internet (for SMS messages API);
 
 
 ## Author

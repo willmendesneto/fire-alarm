@@ -1,14 +1,20 @@
 {
   "name": "nodebots-fire-alarm",
   "version": "1.0.0",
-  "description": "",
+  "description": "A Nodebots fire alarm using NodeJS Johnny-five",
+  "repository": "https://github.com/willmendesneto/fire-alarm",
+  "author": {
+    "name": "Will Mendes",
+    "email": "willmendesneto@gmail.com",
+    "url": "https://github.com/willmendesneto"
+  },
+  "homepage": "https://github.com/willmendesneto/fire-alarm#readme",
   "main": "index.js",
   "scripts": {
     "start": "nodemon ./src/index.js -e js,json --watch ./src",
     "test": "make test"
   },
-  "author": "Wilson Mendes",
-  "license": "ISC",
+  "license": "MIT",
   "dependencies": {
     "johnny-five": "^0.10.0",
     "twilio": "^2.9.2"
