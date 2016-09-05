@@ -1,5 +1,4 @@
 var CONFIG = require('./configuration');
-var request = require('request');
 var five = require('johnny-five');
 var twilio = require('twilio');
 var intervalId = null;
