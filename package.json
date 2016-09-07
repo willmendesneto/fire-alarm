@@ -12,7 +12,8 @@
   "main": "index.js",
   "scripts": {
     "start": "nodemon ./src/index.js -e js,json --watch ./src",
-    "test": "make test"
+    "test": "make test",
+    "code-analysis": "plato -r -d report src test"
   },
   "license": "MIT",
   "dependencies": {
@@ -28,6 +29,7 @@
     "istanbul": "^0.4.3",
     "mocha": "^3.0.2",
     "mock-firmata": "0.0.7",
+    "plato": "^1.7.0",
     "proxyquire": "^1.7.10",
     "serialport": "^4.0.1",
     "should": "^11.1.0",
