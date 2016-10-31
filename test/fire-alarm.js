@@ -101,7 +101,7 @@ describe('FireAlarm', function() {
 
     });
 
-    describe('When the temperature is up to the limit', function(){
+    describe('When the temperature is NOT up to the limit', function(){
 
       beforeEach(function() {
         clock = this.sandbox.useFakeTimers();
