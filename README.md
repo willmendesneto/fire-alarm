@@ -1,5 +1,7 @@
 # Fire Alarm
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/willmendesneto/fire-alarm.svg)](https://greenkeeper.io/)
+
 > A Nodebots fire alarm using NodeJS and Johnny-five
 
 [![Build Status](https://travis-ci.org/willmendesneto/fire-alarm.png?branch=master)](https://travis-ci.org/willmendesneto/fire-alarm)
