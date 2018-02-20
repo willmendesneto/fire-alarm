@@ -17,7 +17,7 @@
   },
   "license": "MIT",
   "dependencies": {
-    "johnny-five": "^0.12.0",
+    "johnny-five": "^0.13.1",
     "twilio": "^3.3.0"
   },
   "devDependencies": {
