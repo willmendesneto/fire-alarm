@@ -30,7 +30,7 @@
     "mocha": "^3.0.2",
     "mock-firmata": "0.1.0",
     "plato": "^1.7.0",
-    "proxyquire": "^1.7.10",
+    "proxyquire": "^2.0.0",
     "serialport": "^4.0.1",
     "should": "^13.2.0",
     "sinon": "^2.3.2"
