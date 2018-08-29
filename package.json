@@ -31,7 +31,7 @@
     "mock-firmata": "0.1.0",
     "plato": "^1.7.0",
     "proxyquire": "^1.7.10",
-    "serialport": "^6.0.5",
+    "serialport": "^7.0.1",
     "should": "^13.2.0",
     "sinon": "^2.3.2"
   }
