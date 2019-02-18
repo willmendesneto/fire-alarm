@@ -33,6 +33,6 @@
     "proxyquire": "^1.7.10",
     "serialport": "^6.0.5",
     "should": "^13.2.0",
-    "sinon": "^2.3.2"
+    "sinon": "^7.2.4"
   }
 }
