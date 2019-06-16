@@ -41,6 +41,5 @@ You will need of:
 ## Author
 
 **Wilson Mendes (willmendesneto)**
-+ <https://plus.google.com/+WilsonMendes>
 + <https://twitter.com/willmendesneto>
 + <http://github.com/willmendesneto>
