@@ -27,7 +27,7 @@
     "editorconfig-tools": "^0.1.1",
     "firmata": "^0.18.0",
     "istanbul": "^0.4.3",
-    "mocha": "^3.0.2",
+    "mocha": "^6.2.0",
     "mock-firmata": "0.1.0",
     "plato": "^1.7.0",
     "proxyquire": "^1.7.10",
