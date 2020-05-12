@@ -1,10 +1,10 @@
-require('should');
-var mockFirmata = require('mock-firmata');
-var five = require('johnny-five');
+require("should");
+const mockFirmata = require("mock-firmata");
+const five = require("johnny-five");
 
-var Board = five.Board;
-var board = new Board({
+const Board = five.Board;
+const board = new Board({
   io: new mockFirmata.Firmata(),
   debug: false,
-  repl: false
+  repl: false,
 });
